@@ -12,13 +12,17 @@ variable app_name {
   default     = ""
   description = "description"
 }
-
 variable app_version {
   type        = string
   default     = ""
   description = "description"
 }
 variable app_repo {
+  type        = string
+  default     = ""
+  description = "description"
+}
+variable image_tag {
   type        = string
   default     = ""
   description = "description"
@@ -70,9 +74,11 @@ resource "helm_release" "i" {
   dependency_update = true
   recreate_pods = true
 
-  # values = [
-  #   file("./config/values.yml")
-  # ]
+  
+  set {
+    name  = "image.tag"
+    value = var.image_tag
+  }
 
   set_sensitive {
     name = "bitwardenrs.domain"
@@ -81,7 +87,7 @@ resource "helm_release" "i" {
 
   set {
     name  = "ingress.enabled"
-    value = true
+    value = "true"
   }
 
 }
