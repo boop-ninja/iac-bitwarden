@@ -79,4 +79,9 @@ resource "helm_release" "i" {
     value = var.domain_name
   }
 
+  set {
+    name  = "ingress.enabled"
+    value = true
+  }
+
 }
