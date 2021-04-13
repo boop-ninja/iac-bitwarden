@@ -18,6 +18,15 @@ resource "kubernetes_ingress" "i" {
           path = "/"
         }
       }
+      http {
+        path {
+          backend {
+            service_name = "bitwardenrs"
+            service_port = 3012
+          }
+          path = "/notifications/hub"
+        }
+      }
     }
     tls {
       secret_name = kubernetes_secret.tls.metadata[0].name
