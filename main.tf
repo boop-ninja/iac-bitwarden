@@ -85,7 +85,7 @@ resource "helm_release" "i" {
 
   set_sensitive {
     name  = "bitwardenrs.domain"
-    value = var.domain_name
+    value = "https://${var.domain_name}"
   }
 
 }
