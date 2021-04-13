@@ -42,27 +42,35 @@ resource "helm_release" "i" {
   }
 
   set {
-    name = "bitwardenrs.smtp.enabled"
+    name  = "bitwardenrs.smtp.enabled"
     value = "true"
   }
   set {
-    name = "bitwardenrs.smtp.from"
+    name  = "bitwardenrs.smtp.from"
     value = "no-reply@${var.domain_name}"
   }
   set {
-    name = "bitwardenrs.smtp.fromName"
+    name  = "bitwardenrs.smtp.fromName"
     value = "BitWarden"
   }
   set {
-    name = "bitwardenrs.smtp.host"
+    name  = "bitwardenrs.smtp.host"
     value = var.smtp_host
   }
   set_sensitive {
-    name = "bitwardenrs.smtp.user"
+    name  = "bitwardenrs.smtp.user"
     value = var.smtp_user
   }
   set_sensitive {
-    name = "bitwardenrs.smtp.password"
+    name  = "bitwardenrs.smtp.password"
+    value = var.smtp_password
+  }
+  set_sensitive {
+    name  = "env.SMTP_USERNAME"
+    value = var.smtp_user
+  }
+  set_sensitive {
+    name  = "env.SMTP_PASSWORD"
     value = var.smtp_password
   }
 }
