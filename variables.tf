@@ -36,3 +36,13 @@ variable "domain_name" {
 output "domain" {
   value = "https://${var.domain_name}"
 }
+
+variable "smtp_host" {
+  default = ""
+}
+variable "smtp_user" {
+  default = ""
+}
+variable "smtp_password" {
+  default = ""
+}

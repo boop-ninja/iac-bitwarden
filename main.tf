@@ -21,13 +21,19 @@ resource "helm_release" "i" {
   dependency_update = true
   recreate_pods     = true
 
-  # values = [
-  #   file("./config/ingress.yml")
-  # ]
-
   set {
     name  = "image.tag"
     value = var.image_tag
+  }
+
+  set {
+    name  = "persistence.enabled"
+    value = "true"
+  }
+
+  set {
+    name  = "persistence.size"
+    value = "10Gi"
   }
 
   set_sensitive {
@@ -35,4 +41,28 @@ resource "helm_release" "i" {
     value = "https://${var.domain_name}"
   }
 
+  set {
+    name = "bitwardenrs.smtp.enabled"
+    value = "true"
+  }
+  set {
+    name = "bitwardenrs.smtp.from"
+    value = "no-reply@${var.domain_name}"
+  }
+  set {
+    name = "bitwardenrs.smtp.fromName"
+    value = "BitWarden"
+  }
+  set {
+    name = "bitwardenrs.smtp.host"
+    value = var.smtp_host
+  }
+  set_sensitive {
+    name = "bitwardenrs.smtp.user"
+    value = var.smtp_user
+  }
+  set_sensitive {
+    name = "bitwardenrs.smtp.password"
+    value = var.smtp_password
+  }
 }
