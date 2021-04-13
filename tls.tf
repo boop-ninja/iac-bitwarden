@@ -21,22 +21,22 @@ resource "tls_self_signed_cert" "i" {
 
   # Reasonable set of uses for a server SSL certificate.
   allowed_uses = [
-      "key_encipherment",
-      "digital_signature",
-      "server_auth",
+    "key_encipherment",
+    "digital_signature",
+    "server_auth",
   ]
 
   dns_names = [var.domain_name]
 
   subject {
-      common_name  = var.domain_name
-      organization = var.domain_name
+    common_name  = var.domain_name
+    organization = var.domain_name
   }
 }
 
 resource "kubernetes_secret" "tls" {
   metadata {
-    name = "tls"
+    name      = "${var.app_name}-tls"
     namespace = var.app_name
   }
 

@@ -7,13 +7,8 @@ resource "kubernetes_ingress" "i" {
   }
 
   spec {
-    # backend {
-    #   service_name = "bitwardenrs"
-    #   service_port = 80
-    # }
-
     rule {
-      host = "key.boop.ninja"
+      host = var.domain_name
       http {
         path {
           backend {
@@ -23,6 +18,9 @@ resource "kubernetes_ingress" "i" {
           path = "/"
         }
       }
+    }
+    tls {
+      secret_name = kubernetes_secret.tls.metadata[0].name
     }
   }
 }

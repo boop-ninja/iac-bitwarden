@@ -1,49 +1,3 @@
-variable "kube_host" {
-}
-
-variable "kube_crt" {
-  default = ""
-}
-variable "kube_key" {
-  default = ""
-}
-variable "app_name" {
-  type        = string
-  default     = ""
-  description = "description"
-}
-variable "app_version" {
-  type        = string
-  default     = ""
-  description = "description"
-}
-variable "app_repo" {
-  type        = string
-  default     = ""
-  description = "description"
-}
-variable "image_tag" {
-  type        = string
-  default     = ""
-  description = "description"
-}
-
-provider "helm" {
-  kubernetes {
-    host               = var.kube_host
-    client_certificate = base64decode(var.kube_crt)
-    client_key         = base64decode(var.kube_key)
-    insecure           = true
-  }
-}
-
-provider "kubernetes" {
-  host               = var.kube_host
-  client_certificate = base64decode(var.kube_crt)
-  client_key         = base64decode(var.kube_key)
-  insecure           = true
-}
-
 resource "kubernetes_namespace" "i" {
   metadata {
     name = var.app_name
@@ -52,13 +6,6 @@ resource "kubernetes_namespace" "i" {
     }
   }
 }
-
-variable "domain_name" {
-  type        = string
-  default     = ""
-  description = "description"
-}
-
 
 resource "helm_release" "i" {
   depends_on = [kubernetes_namespace.i]
