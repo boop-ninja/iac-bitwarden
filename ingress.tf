@@ -17,8 +17,6 @@ resource "kubernetes_ingress" "i" {
           }
           path = "/"
         }
-      }
-      http {
         path {
           backend {
             service_name = "bitwardenrs"
